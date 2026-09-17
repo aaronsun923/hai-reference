@@ -136,3 +136,17 @@ Stop after the pilot. Stop after the full run. The designer decides whether this
    - Split-half demeaning (forecasting SPEC v1 §5.5): before averaging within person, subtract from each item's value the leave-one-out mean of that value across all other persons on the same item; halves are assigned by a fixed random split of images with one seed for everyone.
 
 No parameter in §11 changes.
+
+---
+
+## Amendment 2 (2026-09-16, before the pilot was run)
+
+Rulings on the four pilot-implementation items left open by Amendment 1, plus the scope of the pilot report. No hypothesis and no pilot had been run when this amendment was written.
+
+1. **Pilot unit:** 270 of the 900 test images (1,080 items), drawn at random with seed 20260916.
+2. **Fold scope:** the pilot is self-contained. The 5 folds by image (seed 20260915) run over the 270 pilot images only, and the pilot's confusion rows and combiner weights are fitted within them. The full run refits over all 900 test images. This keeps the pilot a check on the pipeline rather than a preview of 30% of the final numbers. Selection-set images never feed the confusion rows or the combiner, in either run.
+3. **Pooled human vector:** the equal-weight log-linear pool of the item's human confusion rows, renormalized. `w_h` is then fitted on that pooled vector exactly as on a single human vector.
+4. **`I(h | m, r_m)`:** a three-weight pool `(w_m, w_r, w_h)`, compared with a two-weight pool `(w_m, w_r)` as `F0`. Weights are unconstrained; any fitted weight that comes out negative is reported.
+5. **Pilot scope:** the pilot delivers §9 items 3, 4 and 9, plus H1a and H1b on the pilot images. No H1c curve, no leverage marks, no Tejeda quantities, no robustness items. §9 item 4 is limited to the ImageNet-16H confusion rows and the combiner weights.
+
+No parameter in §11 changes.
