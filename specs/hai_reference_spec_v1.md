@@ -1,6 +1,6 @@
 # SPEC v1: Reanalysis of ImageNet-16H and Tejeda et al. (2022): the Human Increment Against an Ensemble, and the Cost of Seeing the Model
 
-Status: DRAFT 2026-09-15. Becomes LOCKED when §11 is confirmed and the file is pushed to a public repository before any analysis runs.
+Status: LOCKED 2026-09-15, §11 parameters confirmed by the designer. Governing from the commit that adds Amendment 1 (2026-09-16); see the amendment for the record of the earlier push.
 
 Reanalysis of the ImageNet-16H and Tejeda et al. (2022) OSF data is by permission of M. Steyvers (email, 15 September 2026). The public repository carries a `PERMISSIONS.md` stating the date, the scope (reanalysis, results public, data not redistributed) and the conditions the author adds; the email itself stays local.
 
@@ -35,7 +35,7 @@ Humans give a label and a three-level confidence, not a probability vector. Huma
 **[LOCKED]** The human forecast is the corresponding row of a cross-fitted confusion matrix: `P(true class | human label, confidence level)`, estimated with Dirichlet smoothing (α = 1 per cell) on the training folds of a 5-fold split **by image** (seed 20260915), so that no image's own outcomes enter its row. This is the human-side model of Kerrigan, Smyth and Steyvers (2021) and of the PNAS combination model.
 
 - **[LOCKED]** Rows are estimated separately for each noise level. Human accuracy differs sharply across the four levels, and a pooled row misplaces the vector at every level.
-- **[LOCKED]** For Tejeda's assisted trials, rows are estimated separately from the unassisted trials, on assisted trials only. A person who copies the model and then reports high confidence is not the same instrument as the same person unassisted.
+- **[LOCKED]** For Tejeda's assisted trials, rows are estimated separately from the unassisted trials, on assisted trials only, because a person who copies the model and then reports high confidence is not the same instrument as the same person unassisted. Copying a below-human model and copying an above-human model are also different behaviors, so rows are estimated per (condition × AI level), pooled across noise levels because Tejeda has only 256 items. Fallback rule, fixed in advance: any row with fewer than 30 training observations falls back to the row pooled across AI levels for that condition; the report lists every row that fell back.
 - Robustness: the uniform off-diagonal rule (mass `c` on the label, `(1 − c)/15` elsewhere, `c` cross-fitted per confidence level and noise level), which is the special case of the confusion row with a uniform off-diagonal.
 
 Loss: 16-class log loss with probabilities clipped at 0.001. Multiclass Brier is the robustness scoring rule.
@@ -61,7 +61,7 @@ For item q and a human classification h on it:
 
 ## 6. Pilot
 
-**[LOCKED]** A random 30% of test items (seed 20260916), all humans on them. H1 and the §5 machinery only. Deliver §9 for the pilot; stop; full run on confirmation.
+**[LOCKED]** A random 30% of test **images** (about 270 images, 1,080 items; seed 20260916), all humans on them. H1 and the §5 machinery only. Deliver §9 for the pilot; stop; full run on confirmation.
 
 ## 7. Hypotheses
 
@@ -72,7 +72,7 @@ For item q and a human classification h on it:
 - **H3a.** Tejeda: mean `Δ_p` by assigned AI level (below, near, above human accuracy), bootstrap over participants. Two-sided. Expected direction recorded: positive for the above-human level, undetermined for the others.
 - **H3b.** Mean `IB_p` by level, one-sided against zero: do people who see the model beat it?
 - **H3c.** Does a person's unassisted increment predict how much of it survives when the model is shown? **[LOCKED]** There is no no-AI control arm, so `Δ_p` and `IA_p` share the unassisted trials and a naive slope carries regression to the mean. The estimator: split each participant's unassisted trials at random into halves (seed 20260916), `IA1_p` and `IA2_p`. Fit two slopes by level: `β_seen` from `IB_p ~ IA1_p` and `β_unseen` from `IA2_p ~ IA1_p`. Regression to the mean is the same in both; `β_seen − β_unseen` is the effect of seeing the model on the persistence of the individual increment, with a bootstrap CI over participants. A slope difference below zero means people who had more to add keep less of it once they see the model. Expected direction: negative, strongest at the below-human level. The `Δ_p`-on-half version is a robustness item. Before the lock, the implementer reports trials per participant per condition; if the unassisted half has fewer than about 30 trials, H3c is demoted to descriptive.
-- If the implementer finds that `model_on` trials are blocked rather than interleaved in the concurrent design, order effects are confounded with seeing the model and H3a is reported as descriptive only; the sequential design is then the primary source for H3.
+- **The two Tejeda designs measure different things and both are reported.** The concurrent design (a person judges with the model's prediction on screen) measures assisted judgment; it is the counterpart of block B in the Prolific experiment and is the primary source for H3a to H3c when its `model_on` trials are interleaved. The sequential design (a person answers, sees the model, and may revise the same item) is a within-item comparison, so item effects cancel, but it measures revision anchored on the person's own first answer; it is reported as a co-primary within-item version of H3a to H3c. If the implementer finds that the concurrent `model_on` trials are blocked rather than interleaved, order effects are confounded with seeing the model, the concurrent H3a is reported as descriptive only, and the sequential design becomes primary.
 
 **[LOCKED]** No other tests.
 
@@ -101,7 +101,7 @@ For item q and a human classification h on it:
 
 Stop after the pilot. Stop after the full run. The designer decides whether this becomes a section of a methods note (with the 4-of-74 documentation finding) or a standalone short paper.
 
-## 11. Parameters awaiting the designer's confirmation
+## 11. Parameters confirmed by the designer (2026-09-15, all [LOCKED])
 
 | Parameter | Proposed | Location |
 |---|---|---|
@@ -114,3 +114,25 @@ Stop after the pilot. Stop after the full run. The designer decides whether this
 | Pilot | 30% of test items, seed 20260916 | §6 |
 | Bootstrap draws | 2,000 | §7 |
 | H3c estimator | two-slope (β_seen − β_unseen) on halves of unassisted trials; demote if < 30 trials per half | §7 |
+
+---
+
+## Amendment 1 (2026-09-16, before any hypothesis was run)
+
+**Record of the push error.** The file committed at `bcbd93b` was a superseded draft (single-`c` human vector, no confusion rows, no fallback rule, item-level splits, Status still DRAFT). The version above is the one confirmed on 2026-09-15 and is the governing text from this commit on. The feasibility audit (deliverables 1 and 2 of §9) was run against the draft; every fact it established carries over, and its open items are ruled on here. No hypothesis had been run when this amendment was committed.
+
+**Rulings from the audit.**
+
+1. **Tejeda's three models are not the `2ntrf` checkpoints** (no exact vector match; the below-human level has no counterpart). H3 uses the 16-class vectors stored on each Tejeda trial row. The H1c curve uses the 20 `2ntrf` variants only. Robustness item 6 compares humans on the same images against different classifiers and says so.
+2. **Concurrent `model_on` trials are blocked** (4 × 48 on, 16 off). Under §7, the sequential design is primary for H3a, H3b and H3c; every concurrent H3 quantity is reported as descriptive. In the sequential design the two responses to an image are the within-item pair, so the H3c split is **by image pair**: an image's unassisted and assisted responses go to the same half.
+3. **Confusion rows for Tejeda.** Unassisted rows are estimated on Tejeda's own unassisted trials (not on ImageNet-16H, which has a narrower noise range and gave no feedback), pooled across AI levels; assisted rows per (condition × level) as §3 states; the 30-observation fallback applies to both.
+4. **Participant exclusions, [LOCKED]:** exclude any participant with duplicated task numbers and repeated images within a session (the two-tab pattern; 3 concurrent, 2 sequential) and any participant with fewer than 30 unassisted trials (C202). Report the counts. The 8 concurrent participants who also took part in ImageNet-16H are kept, and every concurrent quantity is also reported without them as a sensitivity, descriptive.
+5. **ImageNet-16H duplicates:** the 6 rows where a person rated the same item twice keep the first rating.
+6. **Clipping, [LOCKED]:** clip every probability at 0.001, then renormalize the vector to sum to 1. Applies to human vectors, classifier vectors and pooled vectors alike.
+7. **Overlap set:** 128 items (noise 80 to 125), not 160; the 32 noise-0 items have no ImageNet-16H ratings. Robustness item 6 uses the 128.
+8. **Intervals:** 95% throughout; H3b one-sided at 95%.
+9. **Rules imported from the forecasting SPECs**, restated here so this repository is self-contained:
+   - Leverage rule (forecasting SPEC v2 Amendment 1): a point is flagged if leverage > 2p/n or Cook's distance > 4/n, applied mechanically; the refit on unflagged points is co-primary and is reported next to the all-points fit; a directional claim stands only if the sign holds with flagged points removed.
+   - Split-half demeaning (forecasting SPEC v1 §5.5): before averaging within person, subtract from each item's value the leave-one-out mean of that value across all other persons on the same item; halves are assigned by a fixed random split of images with one seed for everyone.
+
+No parameter in §11 changes.
