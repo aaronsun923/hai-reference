@@ -150,3 +150,18 @@ Rulings on the four pilot-implementation items left open by Amendment 1, plus th
 5. **Pilot scope:** the pilot delivers §9 items 3, 4 and 9, plus H1a and H1b on the pilot images. No H1c curve, no leverage marks, no Tejeda quantities, no robustness items. §9 item 4 is limited to the ImageNet-16H confusion rows and the combiner weights.
 
 No parameter in §11 changes.
+
+---
+
+## Amendment 3 (2026-09-16, after the pilot, before the full run)
+
+1. **[LOCKED] Confusion-row smoothing replaced.** The prior for each (label, confidence, noise level) row is the empirical row for the same (label, confidence) pooled across the four noise levels, computed on the same training folds. The prior strength, in pseudo-ratings, is chosen from {1, 2, 4, 8, 16} by 5-fold inner cross-validation on log loss within the training folds only. The chosen strength is reported per noise level. Reason: the α = 1 uniform prior adds 16 pseudo-counts per row and flattens rows with few ratings, placing 0.58 on the person's own label against 0.78 observed accuracy in the pilot; a log-linear weight cannot undo a flattened row, so the human increment was understated. The uniform α = 1 rule becomes robustness item 7, reported as a conservative bound. §8 therefore has seven items.
+   1. The strength is chosen and reported per noise level: four values, each chosen by inner cross-validation within the training folds.
+   2. Inner cross-validation folds are split by image, as the outer folds are, with seed 20260915.
+   3. The strength is chosen inside every row fit, including the nested fits used for combiner training.
+   4. Tejeda: unassisted rows (pooled across AI levels) take a uniform prior, with strength chosen by the same inner cross-validation. Assisted rows, per (condition × AI level), take as prior the unassisted row of the same design pooled across levels, with strength chosen by inner cross-validation. This structured prior replaces the 30-rating fallback rule (§3 and Amendment 1 item 3). The chosen strengths are reported.
+   5. A (label, confidence) pair with no training ratings at any noise level falls back to a uniform prior at the chosen strength; every such row is reported.
+2. **Pooled human vector:** the product and the geometric mean differ only through clipping before `w_h` and the 6-vs-7 humans per item; on the pilot the pooled increments differ by about 0.01 nats with the same sign and near-identical intervals; the product is kept.
+3. **Implementation readings confirmed.** The remaining implementation readings in the pilot report (random draws, nested fitting, weights fitted on items, optimizer) are confirmed as written.
+
+Item 1 supersedes the smoothing in the §11 row "Human vector rule" (Dirichlet α = 1); no other §11 parameter changes.

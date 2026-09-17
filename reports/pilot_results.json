@@ -1,0 +1,136 @@
+{
+ "baseline_a": "vgg19_epoch10",
+ "runner_up": "densenet161_epoch10",
+ "reference_members": [
+  "alexnet_epoch10",
+  "densenet161_epoch10",
+  "googlenet_epoch10",
+  "resnet152_epoch10"
+ ],
+ "selection_images": 300,
+ "test_images": 900,
+ "pilot_images": 270,
+ "pilot_items": 1080,
+ "pilot_ratings": 6516,
+ "pilot_persons": 145,
+ "humans_per_item": {
+  "6": 1044,
+  "7": 36
+ },
+ "ratings_per_person_pilot": {
+  "min": 28,
+  "median": 45.0,
+  "max": 57
+ },
+ "duplicates_dropped_total": 6,
+ "duplicates_dropped_in_pilot": 0,
+ "images_per_fold": {
+  "0": 54,
+  "1": 54,
+  "2": 54,
+  "3": 54,
+  "4": 54
+ },
+ "items_per_fold": {
+  "0": 216,
+  "1": 216,
+  "2": 216,
+  "3": 216,
+  "4": 216
+ },
+ "ratings_per_fold": {
+  "0": 1305,
+  "1": 1304,
+  "2": 1300,
+  "3": 1304,
+  "4": 1303
+ },
+ "optimizer_all_converged": true,
+ "negative_weights": [],
+ "results": {
+  "I_h_a_individual": {
+   "mean": 0.13171252328602234,
+   "ci_lo": 0.08267607645417992,
+   "ci_hi": 0.185266268052155,
+   "share_boot_le_0": 0.0
+  },
+  "I_h_a_pooled": {
+   "mean": 0.2437014618758267,
+   "ci_lo": 0.16107413548300692,
+   "ci_hi": 0.3287961926332528,
+   "share_boot_le_0": 0.0
+  },
+  "I_r_a": {
+   "mean": 0.03458311813148972,
+   "ci_lo": 0.002716256659569151,
+   "ci_hi": 0.06815295015906388,
+   "share_boot_le_0": 0.0155
+  },
+  "D_h_a_individual": {
+   "mean": 0.09712940515453262,
+   "ci_lo": 0.037985848439070435,
+   "ci_hi": 0.16008641021831874,
+   "share_boot_le_0": 0.0
+  },
+  "D_h_a_pooled": {
+   "mean": 0.209118343744337,
+   "ci_lo": 0.1222516233698795,
+   "ci_hi": 0.2989161135810186,
+   "share_boot_le_0": 0.0
+  },
+  "I_h_a_r_individual": {
+   "mean": 0.12004113907260455,
+   "ci_lo": 0.06916347693352763,
+   "ci_hi": 0.17515005251296856,
+   "share_boot_le_0": 0.0
+  },
+  "I_h_a_r_pooled": {
+   "mean": 0.22176079874814952,
+   "ci_lo": 0.14112412727366516,
+   "ci_hi": 0.31049414725382,
+   "share_boot_le_0": 0.0
+  }
+ },
+ "mean_losses": {
+  "raw baseline (a)": 0.4720373517278591,
+  "F0: recalibrated (a)": 0.47257417491497516,
+  "F(a, r_a)": 0.4379910567834855,
+  "human confusion row alone (individual, item mean)": 1.158285058883696,
+  "pooled human alone": 0.5432184557256995,
+  "F(a, h) individual (item mean)": 0.3408616516289529,
+  "F(a, h) pooled": 0.2288727130391485,
+  "F(a, r_a, h) individual (item mean)": 0.3179499177108809,
+  "F(a, r_a, h) pooled": 0.21623025803533594
+ },
+ "accuracy": {
+  "raw_a": 0.85,
+  "human_individual": 0.7757826887661142
+ },
+ "confusion_rows": {
+  "rows_total": 192,
+  "rows_n0": 0,
+  "rows_n_lt30": 116,
+  "max_abs_fold_deviation_by_noise_conf": [
+   [
+    0.122,
+    0.2179,
+    0.2055
+   ],
+   [
+    0.1407,
+    0.1888,
+    0.178
+   ],
+   [
+    0.1155,
+    0.2173,
+    0.1784
+   ],
+   [
+    0.1066,
+    0.1902,
+    0.1944
+   ]
+  ]
+ }
+}
