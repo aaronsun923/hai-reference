@@ -1,0 +1,8 @@
+rows,strength,human_alone_log_loss
+structured,inner CV,0.9555274445001061
+uniform_c,—,0.9911746715371673
+alpha1,—,0.9721076949109566
+"structured prior, fixed strength (outside the locked grid if > 16)",16,0.955527444500106
+"structured prior, fixed strength (outside the locked grid if > 16)",32,0.9470129575113427
+"structured prior, fixed strength (outside the locked grid if > 16)",64,0.9401969858985755
+"structured prior, fixed strength (outside the locked grid if > 16)",128,0.9359475368077578

@@ -2,3 +2,9 @@ INVENTORY.md
 data/
 scratch/
 *.csv
+!reports/**/*.csv
+permissions/
+.DS_Store
+*.png
+!reports/**/*.png
+Claude outputs/

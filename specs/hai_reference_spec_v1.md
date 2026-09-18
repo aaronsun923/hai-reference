@@ -165,3 +165,15 @@ No parameter in §11 changes.
 3. **Implementation readings confirmed.** The remaining implementation readings in the pilot report (random draws, nested fitting, weights fitted on items, optimizer) are confirmed as written.
 
 Item 1 supersedes the smoothing in the §11 row "Human vector rule" (Dirichlet α = 1); no other §11 parameter changes.
+
+---
+
+## Amendment 4 (2026-09-17, after results, diagnostics only, no estimate changes)
+
+Nothing here changes a locked estimate. The full-run results stand as reported in `reports/full_REPORT.md`.
+
+1. **Strength grid extended, as a sensitivity only.** The inner-CV grid of Amendment 3 item 1 is extended with {32, 64, 128} for H1a and H1b only. The extended-grid values are reported next to the locked {1, 2, 4, 8, 16} results, never in their place. Reason: the inner CV chose 16, the top of the locked grid, in every row fit of the full run, and human-alone log loss kept falling past it.
+2. **Robustness item 5 is algebraically identical to the primary H3c estimator.** The slope of the held-out-half `Δ_p` on `IA1_p` equals `β_seen − β_unseen` exactly, because least-squares slopes are linear in the outcome. It is recorded as a duplicate and carries no independent weight.
+3. **Item 7's "conservative bound" label is withdrawn.** In the full run the α = 1 uniform rows gave a larger increment than the structured prior, not a smaller one. The pilot-time reasoning behind the label, that a log-linear weight cannot undo a flattened row, is recorded as not surviving the full data.
+
+No parameter in §11 changes.
