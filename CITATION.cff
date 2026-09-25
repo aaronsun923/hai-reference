@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below, and cite the problem statement DOI."
+title: "hai-reference: locked-spec reanalysis of ImageNet-16H and Tejeda et al. (2022)"
+type: software
+authors:
+  - family-names: Sun
+    given-names: Aaron
+    orcid: "https://orcid.org/0009-0000-2412-4727"
+    affiliation: "San Marino High School"
+license: MIT
+repository-code: "https://github.com/aaronsun923/hai-reference"
+doi: 10.5281/zenodo.22822332
+version: 1.0.2
+date-released: 2026-09-25
+references:
+  - type: report
+    title: "Measuring What a Human Adds to a Machine Baseline: A Problem Statement"
+    authors:
+      - family-names: Sun
+        given-names: Aaron
+    doi: 10.5281/zenodo.22822929
