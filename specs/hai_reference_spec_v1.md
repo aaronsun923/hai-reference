@@ -177,3 +177,32 @@ Nothing here changes a locked estimate. The full-run results stand as reported i
 3. **Item 7's "conservative bound" label is withdrawn.** In the full run the α = 1 uniform rows gave a larger increment than the structured prior, not a smaller one. The pilot-time reasoning behind the label, that a log-linear weight cannot undo a flattened row, is recorded as not surviving the full data.
 
 No parameter in §11 changes.
+
+---
+
+## Amendment 5 (2026-10-08, after results, sensitivity only, no estimate changes)
+
+Status: LOCKED 2026-10-08, committed before code/amendment5_rawF0.py was written or run.
+
+Purpose: Section 7 of the methods paper lists "use a recalibrated baseline as the no-human term" as a candidate reporting item. SPEC v1 §5 defines F0 as the two-weight pool with w_h = 0 and w_m fitted, so every I(h | m) in full_REPORT is measured against a recalibrated classifier. This amendment measures the same increments against the raw classifier, so the paper can say whether the choice matters, with a number. It is a sensitivity item. No locked result changes.
+
+### Quantity
+
+I_raw(h | m): the same out-of-sample log-loss reduction as I(h | m), with F0 replaced by the raw classifier vector (w_m = 1, no fitted weight, no recalibration), and the with-human pool unchanged (two fitted weights, same 5 folds by image, seed 20260915, same clipping). Computed for:
+- all 20 classifier variants, individual and pooled versions (H1c counterpart);
+- the slope of I_raw(h | m) on baseline loss (H1c slope counterpart), same bootstrap as full_REPORT.
+
+Reported side by side with the locked I(h | m) values, and the difference I_raw − I_recal per variant with a paired interval (same bootstrap draws).
+
+### Reading, fixed before the run
+
+- The difference is expected to be positive wherever the raw classifier is miscalibrated (recalibration takes credit the human would otherwise get).
+- The choice is called material, and becomes a numbered item in the reporting standard, if either of these holds: (a) for at least one variant the paired interval on I_raw − I_recal excludes zero and the difference exceeds 20% of I_recal; (b) the slope of I on baseline loss changes by more than the half-width of its locked interval. Otherwise the item moves to the discussion as a recommendation without a demonstration, and the paper says so.
+
+### Output
+
+- code/amendment5_rawF0.py (one flag on the existing F0 construction; no other change).
+- reports/amendment5_REPORT.md: 20-row table (variant, baseline loss, I_recal, I_raw, difference and interval, individual and pooled), the two slopes, and the verdict under the rule above.
+- reports/amendment5_results.json.
+
+Reproduction check: with the flag off, the script must reproduce the locked H1c values for all 20 variants exactly before the raw run is reported.
